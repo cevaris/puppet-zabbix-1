@@ -24,6 +24,9 @@ class zabbix::database(
   $db_pass         = '',
   $db_host         = '',
 ) {
+
+  include mysql::server
+
   # If manage_database is true, we going to load the correct database class
   if $manage_database == true {
     case $dbtype {
