@@ -319,6 +319,12 @@ class zabbix::server (
   $loadmodule              = $zabbix::params::server_loadmodule,
   ) inherits zabbix::params {
 
+  exec { 'apt-update':
+      command => '/usr/bin/apt-get update'
+  }
+
+  Exec['apt-update'] -> Package <| |>
+
   # Check some if they are boolean
   validate_bool($manage_database)
   validate_bool($manage_vhost)

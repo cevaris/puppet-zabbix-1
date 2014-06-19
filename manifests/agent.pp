@@ -151,6 +151,12 @@ class zabbix::agent (
   $loadmodule           = $zabbix::params::agent_loadmodule,
   ) inherits zabbix::params {
 
+  exec { 'apt-update':
+      command => '/usr/bin/apt-get update'
+  }
+
+  Exec['apt-update'] -> Package <| |>
+
   # Check some if they are boolean
   validate_bool($manage_firewall)
   validate_bool($manage_repo)
