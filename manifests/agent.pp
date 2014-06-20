@@ -217,4 +217,19 @@ class zabbix::agent (
       state  => ['NEW','RELATED', 'ESTABLISHED'],
     }
   }
+
+  # Export a host definition, to be imported by the zabbix server
+  @@zabbix_host { $::fqdn:
+    ensure     => 'present',
+    groups     => ['Linux servers','foogroup'],
+    interfaces => [ {
+        type  => 1,
+        main  => 1,
+        ip    => $::ipaddress,
+        dns   => $::fqdn,
+        port  => 10050,
+        useip => 0
+    } ],
+  }
+
 }
